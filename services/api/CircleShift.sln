@@ -1,0 +1,46 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleShift.Domain", "src\CircleShift.Domain\CircleShift.Domain.csproj", "{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleShift.Application", "src\CircleShift.Application\CircleShift.Application.csproj", "{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleShift.Infrastructure", "src\CircleShift.Infrastructure\CircleShift.Infrastructure.csproj", "{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleShift.Api", "src\CircleShift.Api\CircleShift.Api.csproj", "{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleShift.Tests", "tests\CircleShift.Tests\CircleShift.Tests.csproj", "{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A7E52-94B0-4D2F-8A61-0E5B7C2D9F15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
