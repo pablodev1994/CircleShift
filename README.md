@@ -2,7 +2,7 @@
 
 **Community skill exchange with smart matching.** CircleShift connects adults who want to trade short, practical help, like English conversation, bike repair, résumé reviews or gardening tips, using time credits instead of money.
 
-> **Status:** early development, following a 12-week roadmap (see below). The MVP is for adults only (18+), uses fictional profiles and simulated time credits, and has no real money or precise locations.
+> **Status:** early development, following an 8-week roadmap (see below). The MVP is for adults only (18+), uses fictional profiles and simulated time credits, and has no real money or precise locations.
 
 ## The idea
 
@@ -72,13 +72,16 @@ flowchart LR
 
 ## Roadmap
 
-| Weeks | Focus |
-|---|---|
-| 1–2 | Community concept, Angular/.NET setup; accounts, permissions and profile privacy |
-| 3–5 | Offers, requests and skill taxonomy; time zones and availability; sessions and the time-credit ledger |
-| 6–8 | Semantic matching baseline, explained ranking, real-time messaging and first staging |
-| 9–10 | Safety reporting with moderation assistance; skill circles and analytics |
-| 11–12 | Security, observability and performance; release and scaling plan |
+| Week | Focus | Status |
+|---|---|---|
+| Week 1 | **Community concept & Angular/.NET bootstrap** — Add community rules, personas, ADR 0001 and Angular app shell, bootstrap ASP.NET Core API with health route, EF Core and Compose | Planned |
+| Week 2 | **Accounts, permissions & profile privacy** — Add member profiles, roles and authorization policies, add Angular onboarding, profile editor and visibility and block API | Planned |
+| Week 3 | **Offers, requests, availability & invitations** — Add skill catalog, offers, requests and Angular feed, add IANA availability windows, exchange states and slot suggestions, add Angular invitation panel and weekly availability editor | Planned |
+| Week 4 | **Session confirmation & time-credit ledger** — Add session confirmations and credit journal models, add idempotent time-credit settlement and wallet history | Planned |
+| Week 5 | **Semantic matching & explained ranking** — Add hard filters, keyword baseline and Angular match cards, add embedding provider adapter with mock fallback and re-embedding worker, add compare-match drawer and ranking feedback | Planned |
+| Week 6 | **Real-time messaging & first staging** — Add conversations, messages and authenticated SignalR hub, add cursor history, outbox delivery and Angular message thread | Planned |
+| Week 7 | **Safety moderation, circles & analytics** — Add reports, moderation cases, appeals and moderator queue, add circles, event reservations and aggregate metrics, add Angular circle event page and activity dashboard | Planned |
+| Week 8 | **Security, observability & release** — Audit block checks and add metrics, logs and traces, run security and concurrency checks and rehearse restore, finalize acceptance matrix, demo seed and changelog, ship HTTPS demo and verify SignalR reverse proxy | Planned |
 
 ## Getting started
 
