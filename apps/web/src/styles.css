@@ -7,6 +7,7 @@
   --cs-color-primary-contrast: #ffffff;
   --cs-color-accent: #b45309;
   --cs-color-border: #d9e2ec;
+  --cs-color-notice-bg: #fffbeb;
   --cs-radius: 0.5rem;
   --cs-space: 1rem;
   --cs-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -161,7 +162,7 @@ main {
 .notice {
   padding: 0.75rem 1rem;
   border-left: 4px solid var(--cs-color-accent);
-  background: #fffbeb;
+  background: var(--cs-color-notice-bg);
 }
 
 .site-footer {

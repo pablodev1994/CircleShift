@@ -1,5 +1,6 @@
 using CircleShift.Application.Abstractions;
 using CircleShift.Infrastructure.Persistence;
+using CircleShift.Infrastructure.Seeding;
 using CircleShift.Infrastructure.Time;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
         services.AddSingleton<IClock, SystemClock>();
+        services.AddScoped<DemoDataSeeder>();
         return services;
     }
 }

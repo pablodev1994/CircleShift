@@ -89,7 +89,21 @@ flowchart LR
 - [Personas](docs/product/personas.md) and permission summary
 - [Exchange lifecycle](docs/domain/exchange-lifecycle.md): states, time-credit settlement and time zones
 - [ADR 0001](docs/adr/0001-angular-dotnet-modular-monolith.md): Angular front end and a modular ASP.NET Core monolith
+- [Development setup](docs/setup/dev-setup.md): toolchains, local services, migrations, seed and checks
+- [Design tokens](docs/design/design-tokens.md): colors with measured contrast, spacing, type and focus rules
+- [Demo profiles and skill catalog](docs/product/demo-profiles.md): fictional adult demo members and the canonical skills
 
 ## Getting started
 
-Setup instructions will be added once the first services are in place.
+You need the .NET 9 SDK, Node.js 22 with pnpm, and Docker Compose.
+
+```bash
+cp .env.example .env && docker compose up -d --wait
+cd services/api && dotnet tool restore && set -a && . ../../.env && set +a
+dotnet ef database update --project src/CircleShift.Infrastructure --startup-project src/CircleShift.Api
+dotnet run --project src/CircleShift.Api -- seed --demo-members   # skill catalog + fictional demo members
+dotnet run --project src/CircleShift.Api                          # API on http://localhost:5080
+cd ../.. && pnpm install && pnpm web:start                         # web on http://localhost:4200
+```
+
+The full walkthrough, checks and troubleshooting are in [docs/setup/dev-setup.md](docs/setup/dev-setup.md).

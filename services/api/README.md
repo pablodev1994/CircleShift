@@ -6,9 +6,9 @@ ASP.NET Core (.NET 9) modular monolith with EF Core on PostgreSQL (pgvector) and
 |---|---|
 | `CircleShift.Domain` | Entities and business rules (members, canonical skills); no framework dependencies |
 | `CircleShift.Application` | Use-case ports such as `IClock` |
-| `CircleShift.Infrastructure` | EF Core `CircleShiftDbContext`, table mappings, migrations, system clock |
+| `CircleShift.Infrastructure` | EF Core `CircleShiftDbContext`, table mappings, migrations, system clock, seed data |
 | `CircleShift.Api` | HTTP host: controllers, health checks, OpenAPI (Development only) |
-| `CircleShift.Tests` | xUnit domain tests and in-memory API tests |
+| `CircleShift.Tests` | xUnit domain, seed-data and in-memory API tests |
 
 ## Run locally
 
@@ -24,6 +24,16 @@ set -a && . ../../.env && set +a  # exports ConnectionStrings__Postgres and CIRC
 dotnet ef database update --project src/CircleShift.Infrastructure --startup-project src/CircleShift.Api
 dotnet run --project src/CircleShift.Api   # http://localhost:5080
 ```
+
+## Seed data
+
+```bash
+dotnet run --project src/CircleShift.Api -- seed                  # canonical skill catalog
+dotnet run --project src/CircleShift.Api -- seed --demo-members   # plus fictional demo members (Development only)
+```
+
+`Seeding/DemoDataSeeder` is idempotent and uses stable version 5 ids derived
+from each slug or handle. See [demo profiles](../../docs/product/demo-profiles.md).
 
 ## Health routes
 

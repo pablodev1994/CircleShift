@@ -1,6 +1,7 @@
 using CircleShift.Api.Health;
 using CircleShift.Infrastructure;
 using CircleShift.Infrastructure.Persistence;
+using CircleShift.Infrastructure.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,23 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
+// `dotnet run -- seed [--demo-members]` loads the canonical skill catalog
+// (and, in Development only, the fictional demo members), then exits.
+if (args is ["seed", .. var seedOptions])
+{
+    var includeDemoMembers = seedOptions.Contains("--demo-members");
+    if (includeDemoMembers && !app.Environment.IsDevelopment())
+    {
+        Console.Error.WriteLine("Demo members are only seeded in the Development environment.");
+        return 1;
+    }
+
+    await using var scope = app.Services.CreateAsyncScope();
+    var result = await scope.ServiceProvider.GetRequiredService<DemoDataSeeder>().SeedAsync(includeDemoMembers);
+    Console.WriteLine($"Skills added: {result.SkillsAdded}; demo members added: {result.MembersAdded}");
+    return 0;
+}
+
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
@@ -31,6 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
+return 0;
 
 public partial class Program;
