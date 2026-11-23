@@ -1,0 +1,14 @@
+{
+  "name": "circleshift",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "web:start": "pnpm --filter @circleshift/web start",
+    "web:build": "pnpm --filter @circleshift/web build",
+    "web:lint": "pnpm --filter @circleshift/web lint",
+    "web:test": "pnpm --filter @circleshift/web test"
+  }
+}

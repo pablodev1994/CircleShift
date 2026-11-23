@@ -1,0 +1,38 @@
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <a class="brand" routerLink="/">CircleShift</a>
+
+  <nav aria-label="Main">
+    <ul class="nav-list">
+      @for (item of nav.items(); track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+            ariaCurrentWhenActive="page"
+            >{{ item.label }}</a
+          >
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <label class="role-preview">
+    <span>Preview as</span>
+    <select (change)="onRoleChange($event)">
+      @for (role of roles; track role) {
+        <option [value]="role" [selected]="role === nav.currentRole()">{{ roleLabels[role] }}</option>
+      }
+    </select>
+  </label>
+</header>
+
+<main id="main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="site-footer">
+  Demo community: adults only (18+), fictional profiles and simulated time credits. Not for emergencies.
+</footer>

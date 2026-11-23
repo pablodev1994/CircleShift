@@ -74,7 +74,7 @@ flowchart LR
 
 | Week | Focus | Status |
 |---|---|---|
-| Week 1 | **Community concept & Angular/.NET bootstrap** — Add community rules, personas, ADR 0001 and Angular app shell, bootstrap ASP.NET Core API with health route, EF Core and Compose | Planned |
+| Week 1 | **Community concept & Angular/.NET bootstrap** — Add community rules, personas, ADR 0001 and Angular app shell, bootstrap ASP.NET Core API with health route, EF Core and Compose | ✅ Done |
 | Week 2 | **Accounts, permissions & profile privacy** — Add member profiles, roles and authorization policies, add Angular onboarding, profile editor and visibility and block API | Planned |
 | Week 3 | **Offers, requests, availability & invitations** — Add skill catalog, offers, requests and Angular feed, add IANA availability windows, exchange states and slot suggestions, add Angular invitation panel and weekly availability editor | Planned |
 | Week 4 | **Session confirmation & time-credit ledger** — Add session confirmations and credit journal models, add idempotent time-credit settlement and wallet history | Planned |
@@ -83,6 +83,27 @@ flowchart LR
 | Week 7 | **Safety moderation, circles & analytics** — Add reports, moderation cases, appeals and moderator queue, add circles, event reservations and aggregate metrics, add Angular circle event page and activity dashboard | Planned |
 | Week 8 | **Security, observability & release** — Audit block checks and add metrics, logs and traces, run security and concurrency checks and rehearse restore, finalize acceptance matrix, demo seed and changelog, ship HTTPS demo and verify SignalR reverse proxy | Planned |
 
+## Documentation
+
+- [Community rules](docs/community-policy/community-rules.md): adult-only scope, allowed skills, privacy and moderation
+- [Personas](docs/product/personas.md) and permission summary
+- [Exchange lifecycle](docs/domain/exchange-lifecycle.md): states, time-credit settlement and time zones
+- [ADR 0001](docs/adr/0001-angular-dotnet-modular-monolith.md): Angular front end and a modular ASP.NET Core monolith
+- [Development setup](docs/setup/dev-setup.md): toolchains, local services, migrations, seed and checks
+- [Design tokens](docs/design/design-tokens.md): colors with measured contrast, spacing, type and focus rules
+- [Demo profiles and skill catalog](docs/product/demo-profiles.md): fictional adult demo members and the canonical skills
+
 ## Getting started
 
-Setup instructions will be added once the first services are in place.
+You need the .NET 9 SDK, Node.js 22 with pnpm, and Docker Compose.
+
+```bash
+cp .env.example .env && docker compose up -d --wait
+cd services/api && dotnet tool restore && set -a && . ../../.env && set +a
+dotnet ef database update --project src/CircleShift.Infrastructure --startup-project src/CircleShift.Api
+dotnet run --project src/CircleShift.Api -- seed --demo-members   # skill catalog + fictional demo members
+dotnet run --project src/CircleShift.Api                          # API on http://localhost:5080
+cd ../.. && pnpm install && pnpm web:start                         # web on http://localhost:4200
+```
+
+The full walkthrough, checks and troubleshooting are in [docs/setup/dev-setup.md](docs/setup/dev-setup.md).

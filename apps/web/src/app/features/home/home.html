@@ -1,0 +1,23 @@
+<section class="hero" aria-labelledby="home-title">
+  <h1 id="home-title">Trade an hour of help, not money</h1>
+  <p>
+    CircleShift connects adults who want to exchange short, practical help, from language practice to
+    bike repair, using time credits.
+  </p>
+  <a class="button" routerLink="/board">Browse offers and requests</a>
+</section>
+
+<section aria-labelledby="how-title">
+  <h2 id="how-title">How an exchange works</h2>
+  <ol class="steps">
+    @for (step of steps; track step.title; let i = $index) {
+      <li class="step">
+        <span class="step-number" aria-hidden="true">{{ i + 1 }}</span>
+        <div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.detail }}</p>
+        </div>
+      </li>
+    }
+  </ol>
+</section>
