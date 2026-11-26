@@ -1,4 +1,5 @@
 using CircleShift.Api.Health;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -6,6 +7,7 @@ namespace CircleShift.Api.Controllers;
 
 [ApiController]
 [Route("health")]
+[AllowAnonymous]
 [Produces("application/json")]
 public sealed class HealthController(HealthCheckService healthChecks) : ControllerBase
 {

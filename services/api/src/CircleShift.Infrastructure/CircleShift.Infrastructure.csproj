@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Password hashing (PasswordHasher, PBKDF2) from ASP.NET Core Identity. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 

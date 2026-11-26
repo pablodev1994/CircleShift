@@ -51,13 +51,24 @@ After migrations, from `services/api` with `.env` exported:
 # Canonical skill catalog only (safe in any environment)
 dotnet run --project src/CircleShift.Api -- seed
 
-# Catalog plus the fictional adult demo members (Development only)
+# Catalog plus the fictional adult demo members and their persona roles (Development only)
 ASPNETCORE_ENVIRONMENT=Development dotnet run --project src/CircleShift.Api -- seed --demo-members
+
+# The same, plus demo sign-in accounts (<handle>@demo.circleshift.example)
+CIRCLESHIFT_DEMO_PASSWORD='pick-12+-characters' ASPNETCORE_ENVIRONMENT=Development \
+  dotnet run --project src/CircleShift.Api -- seed --demo-members
 ```
 
-The seed is idempotent: a second run prints `Skills added: 0; demo members
-added: 0`. It refuses to run if a catalog slug already belongs to a different
-id. What gets seeded, and the rules demo data follows, are in
+The seed is idempotent: a second run reports 0 of everything added. It refuses
+to run if a catalog slug already belongs to a different id, or if
+`CIRCLESHIFT_DEMO_PASSWORD` is shorter than 12 characters.
+
+To make a member you registered yourself the first admin (refused once a
+verified admin exists):
+
+```bash
+dotnet run --project src/CircleShift.Api -- bootstrap-admin you@example.org
+``` What gets seeded, and the rules demo data follows, are in
 [demo profiles](../product/demo-profiles.md).
 
 ## Everyday commands

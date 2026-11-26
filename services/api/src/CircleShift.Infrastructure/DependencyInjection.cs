@@ -1,7 +1,10 @@
 using CircleShift.Application.Abstractions;
+using CircleShift.Domain.Accounts;
+using CircleShift.Infrastructure.Accounts;
 using CircleShift.Infrastructure.Persistence;
 using CircleShift.Infrastructure.Seeding;
 using CircleShift.Infrastructure.Time;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +20,10 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
         services.AddSingleton<IClock, SystemClock>();
+        services.AddSingleton<IPasswordHasher<MemberAccount>, PasswordHasher<MemberAccount>>();
+        services.AddScoped<AccountService>();
+        services.AddScoped<MemberAccessService>();
+        services.AddScoped<RoleGrantService>();
         services.AddScoped<DemoDataSeeder>();
         return services;
     }

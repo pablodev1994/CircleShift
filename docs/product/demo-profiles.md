@@ -34,9 +34,15 @@ matcher more than one candidate per skill.
 The time zones cover offsets from UTC−6 to UTC+5:30 and both hemispheres'
 daylight-saving rules, so availability work can be tested across real changes.
 
-Roles, profile details, offers and requests are added to the seed as those
-features are built. Today the seed stores the identity record only (display
-name, time zone, adult confirmation).
+Marisol, Andrés and Camila get their persona role (coordinator, moderator,
+admin) as a verified seed grant. Every demo profile starts **hidden**, like a
+new member's. Profile details, offers and requests are added to the seed as
+those features are built.
+
+Sign-in accounts (`<handle>@demo.circleshift.example`, a reserved example
+domain) are created only when `CIRCLESHIFT_DEMO_PASSWORD` is set when the seed
+runs; all demo accounts share that password. It must be 12–128 characters and
+is never stored in the repository.
 
 ## Canonical skill catalog
 
