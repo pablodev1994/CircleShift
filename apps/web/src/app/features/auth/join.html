@@ -1,0 +1,102 @@
+<section class="form-page" aria-labelledby="join-title">
+  <p class="step-label">Step 1 of 2 · Account</p>
+  <h1 id="join-title">Join CircleShift</h1>
+  <p>
+    CircleShift is for adults (18+). Your profile starts hidden; you choose who can see it in the next step.
+  </p>
+
+  @if (formError(); as error) {
+    <p class="form-error" role="alert">{{ error }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate [attr.data-attempt]="attempt()">
+    <div class="field">
+      <label for="join-email">Email</label>
+      <input
+        id="join-email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        [attr.aria-invalid]="message(form.controls.email, 'Email') ? true : null"
+        [attr.aria-describedby]="message(form.controls.email, 'Email') ? 'join-email-error' : null"
+      />
+      @if (message(form.controls.email, 'Email'); as error) {
+        <p class="field-error" id="join-email-error">{{ error }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="join-password">Password</label>
+      <input
+        id="join-password"
+        type="password"
+        formControlName="password"
+        autocomplete="new-password"
+        aria-describedby="join-password-hint"
+        [attr.aria-invalid]="message(form.controls.password, 'Password') ? true : null"
+      />
+      <p class="field-hint" id="join-password-hint">At least {{ limits.passwordMin }} characters. A short sentence works well.</p>
+      @if (message(form.controls.password, 'Password'); as error) {
+        <p class="field-error" role="alert">{{ error }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="join-name">Display name</label>
+      <input
+        id="join-name"
+        type="text"
+        formControlName="displayName"
+        autocomplete="nickname"
+        [attr.maxlength]="limits.displayNameMax"
+        [attr.aria-invalid]="message(form.controls.displayName, 'Display name') ? true : null"
+        [attr.aria-describedby]="message(form.controls.displayName, 'Display name') ? 'join-name-error' : null"
+      />
+      @if (message(form.controls.displayName, 'Display name'); as error) {
+        <p class="field-error" id="join-name-error">{{ error }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="join-zone">Time zone</label>
+      <input
+        id="join-zone"
+        type="text"
+        formControlName="timeZoneId"
+        list="join-zone-options"
+        autocomplete="off"
+        aria-describedby="join-zone-hint"
+        [attr.aria-invalid]="message(form.controls.timeZoneId, 'Time zone') ? true : null"
+      />
+      <datalist id="join-zone-options">
+        @for (zone of zones; track zone) {
+          <option [value]="zone"></option>
+        }
+      </datalist>
+      <p class="field-hint" id="join-zone-hint">Session times are shown in this zone. We filled in your device's zone.</p>
+      @if (message(form.controls.timeZoneId, 'Time zone'); as error) {
+        <p class="field-error" role="alert">{{ error }}</p>
+      }
+    </div>
+
+    <div class="field field-check">
+      <input
+        id="join-adult"
+        type="checkbox"
+        formControlName="confirmedAdult"
+        [attr.aria-invalid]="message(form.controls.confirmedAdult, 'Adult confirmation') ? true : null"
+        [attr.aria-describedby]="message(form.controls.confirmedAdult, 'Adult confirmation') ? 'join-adult-error' : null"
+      />
+      <label for="join-adult">I confirm I am 18 or older and accept the community rules.</label>
+      @if (message(form.controls.confirmedAdult, 'Adult confirmation'); as error) {
+        <p class="field-error" id="join-adult-error">{{ error }}</p>
+      }
+    </div>
+
+    <button class="button" type="submit" [disabled]="submitting()">
+      {{ submitting() ? 'Creating account…' : 'Create account' }}
+    </button>
+  </form>
+
+  <p>Already a member? <a routerLink="/sign-in">Sign in</a></p>
+</section>

@@ -19,14 +19,25 @@
     </ul>
   </nav>
 
-  <label class="role-preview">
-    <span>Preview as</span>
-    <select (change)="onRoleChange($event)">
-      @for (role of roles; track role) {
-        <option [value]="role" [selected]="role === nav.currentRole()">{{ roleLabels[role] }}</option>
-      }
-    </select>
-  </label>
+  <div class="account">
+    @if (session.me(); as me) {
+      <a routerLink="/profile" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <span class="visually-hidden">Your profile: </span>{{ me.displayName }}
+      </a>
+      <button type="button" class="button-secondary" (click)="signOut()" [disabled]="signingOut()">Sign out</button>
+    } @else {
+      <label class="role-preview">
+        <span>Preview as</span>
+        <select (change)="onRoleChange($event)">
+          @for (role of roles; track role) {
+            <option [value]="role" [selected]="role === nav.currentRole()">{{ roleLabels[role] }}</option>
+          }
+        </select>
+      </label>
+      <a routerLink="/sign-in">Sign in</a>
+      <a class="button" routerLink="/join">Join</a>
+    }
+  </div>
 </header>
 
 <main id="main" tabindex="-1">

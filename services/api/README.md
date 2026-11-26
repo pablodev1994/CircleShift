@@ -65,6 +65,26 @@ from each slug or handle. See [demo profiles](../../docs/product/demo-profiles.m
   (`RateLimits:AuthPermitPerMinute`, default 10).
 - Errors use `{ code, message, requestId, details? }`.
 
+## Profiles, directory and blocks
+
+| Route | Who | Notes |
+|---|---|---|
+| `GET`/`PUT /api/v1/members/me/profile` | member (`profile.edit` to save) | Display name, IANA time zone, bio (≤500), up to 8 BCP 47 languages, coarse area, visibility `hidden`/`members`/`public` |
+| `GET /api/v1/members?q=&language=&limit=&offset=` | anyone | Directory by display name; `limit` 1–50 (default 20); the caller is not listed |
+| `GET /api/v1/members/{id}` | anyone | 404 `profile.not_found` when the profile is missing, hidden, members-only for a visitor, or blocked either way |
+| `GET /api/v1/members/me/blocks` | member | Members you blocked, newest first |
+| `PUT`/`DELETE /api/v1/members/me/blocks/{id}` | member | Block or unblock; both are idempotent (204). Blocking yourself is 422 `block.self` |
+
+- New members are `hidden` until they choose otherwise. Visitors see `public`
+  profiles; members also see `members` profiles.
+- Visibility and blocks are applied inside the database query
+  (`ProfileService.VisibleTo`), so hidden or blocked profiles never leave the
+  database for that caller. A block hides both members from each other and
+  only the blocker can lift it.
+- Profiles are only edited through `members/me`; there is no route that takes
+  another member's id for writing. Search text matches literally (`%` and `_`
+  are not wildcards).
+
 ## Health routes
 
 | Route | Checks | Status codes |

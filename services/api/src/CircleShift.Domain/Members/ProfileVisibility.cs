@@ -15,3 +15,34 @@ public enum ProfileVisibility
     /// <summary>Anyone, including visitors who are not signed in.</summary>
     Public,
 }
+
+/// <summary>The lower-case names used in the API and the database.</summary>
+public static class ProfileVisibilities
+{
+    public static string ToName(this ProfileVisibility visibility) => visibility switch
+    {
+        ProfileVisibility.Hidden => "hidden",
+        ProfileVisibility.Members => "members",
+        ProfileVisibility.Public => "public",
+        _ => throw new ArgumentOutOfRangeException(nameof(visibility), visibility, "Unknown profile visibility."),
+    };
+
+    public static bool TryParse(string? name, out ProfileVisibility visibility)
+    {
+        switch (name?.Trim().ToLowerInvariant())
+        {
+            case "hidden":
+                visibility = ProfileVisibility.Hidden;
+                return true;
+            case "members":
+                visibility = ProfileVisibility.Members;
+                return true;
+            case "public":
+                visibility = ProfileVisibility.Public;
+                return true;
+            default:
+                visibility = default;
+                return false;
+        }
+    }
+}

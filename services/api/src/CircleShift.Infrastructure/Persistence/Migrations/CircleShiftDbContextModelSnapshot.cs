@@ -139,6 +139,32 @@ namespace CircleShift.Infrastructure.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CircleShift.Domain.Members.MemberBlock", b =>
+                {
+                    b.Property<Guid>("BlockerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("blocker_id");
+
+                    b.Property<Guid>("BlockedId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("blocked_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.HasKey("BlockerId", "BlockedId")
+                        .HasName("pk_member_blocks");
+
+                    b.HasIndex("BlockedId")
+                        .HasDatabaseName("ix_member_blocks_blocked_id");
+
+                    b.ToTable("member_blocks", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_member_blocks_not_self", "blocker_id <> blocked_id");
+                        });
+                });
+
             modelBuilder.Entity("CircleShift.Domain.Members.RoleGrant", b =>
                 {
                     b.Property<Guid>("Id")
@@ -251,6 +277,23 @@ namespace CircleShift.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_member_accounts_members");
+                });
+
+            modelBuilder.Entity("CircleShift.Domain.Members.MemberBlock", b =>
+                {
+                    b.HasOne("CircleShift.Domain.Members.Member", null)
+                        .WithMany()
+                        .HasForeignKey("BlockedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_member_blocks_blocked");
+
+                    b.HasOne("CircleShift.Domain.Members.Member", null)
+                        .WithMany()
+                        .HasForeignKey("BlockerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_member_blocks_blocker");
                 });
 
             modelBuilder.Entity("CircleShift.Domain.Members.RoleGrant", b =>

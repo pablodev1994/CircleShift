@@ -1,0 +1,164 @@
+<section class="form-page" aria-labelledby="profile-title">
+  @if (isWelcome()) {
+    <p class="step-label">Step 2 of 2 · Profile</p>
+    <h1 id="profile-title">Set up your profile</h1>
+    <p class="notice" role="note">
+      Your account is ready. Your profile is <strong>hidden</strong> until you choose otherwise below, so nobody
+      sees it yet.
+    </p>
+  } @else {
+    <h1 id="profile-title">Your profile</h1>
+  }
+
+  @if (loadError(); as error) {
+    <p class="form-error" role="alert">Your profile could not be loaded: {{ error }}</p>
+  } @else if (!profile()) {
+    <p aria-live="polite">Loading your profile…</p>
+  } @else {
+    <p class="status" role="status">{{ saved() }}</p>
+    @if (formError(); as error) {
+      <p class="form-error" role="alert">{{ error }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="save()" novalidate [attr.data-attempt]="attempt()">
+      <div class="field">
+        <label for="profile-name">Display name</label>
+        <input
+          id="profile-name"
+          type="text"
+          formControlName="displayName"
+          autocomplete="nickname"
+          [attr.maxlength]="limits.displayNameMax"
+          [attr.aria-invalid]="message(form.controls.displayName, 'Display name') ? true : null"
+          [attr.aria-describedby]="message(form.controls.displayName, 'Display name') ? 'profile-name-error' : null"
+        />
+        @if (message(form.controls.displayName, 'Display name'); as error) {
+          <p class="field-error" id="profile-name-error">{{ error }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="profile-zone">Time zone</label>
+        <input
+          id="profile-zone"
+          type="text"
+          formControlName="timeZoneId"
+          list="profile-zone-options"
+          autocomplete="off"
+          [attr.aria-invalid]="message(form.controls.timeZoneId, 'Time zone') ? true : null"
+          [attr.aria-describedby]="message(form.controls.timeZoneId, 'Time zone') ? 'profile-zone-error' : null"
+        />
+        <datalist id="profile-zone-options">
+          @for (zone of zones; track zone) {
+            <option [value]="zone"></option>
+          }
+        </datalist>
+        @if (message(form.controls.timeZoneId, 'Time zone'); as error) {
+          <p class="field-error" id="profile-zone-error">{{ error }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="profile-bio">About you</label>
+        <textarea
+          id="profile-bio"
+          formControlName="bio"
+          rows="4"
+          aria-describedby="profile-bio-count"
+          [attr.aria-invalid]="message(form.controls.bio, 'About you') ? true : null"
+        ></textarea>
+        <p class="field-hint" id="profile-bio-count">{{ bioLength() }} / {{ limits.bioMax }} characters</p>
+        @if (message(form.controls.bio, 'About you'); as error) {
+          <p class="field-error" role="alert">{{ error }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="profile-languages">Languages you can exchange in</label>
+        <input
+          id="profile-languages"
+          type="text"
+          formControlName="languages"
+          autocomplete="off"
+          aria-describedby="profile-languages-hint"
+          [attr.aria-invalid]="message(form.controls.languages, 'Languages') ? true : null"
+        />
+        <p class="field-hint" id="profile-languages-hint">
+          Language tags separated by commas, for example <code>es, en, pt-BR</code>. Up to {{ limits.languagesMax }}.
+        </p>
+        @if (message(form.controls.languages, 'Languages'); as error) {
+          <p class="field-error" role="alert">{{ error }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="profile-area">Area (optional)</label>
+        <input
+          id="profile-area"
+          type="text"
+          formControlName="areaLabel"
+          autocomplete="off"
+          aria-describedby="profile-area-hint"
+          [attr.maxlength]="limits.areaLabelMax"
+          [attr.aria-invalid]="message(form.controls.areaLabel, 'Area') ? true : null"
+        />
+        <p class="field-hint" id="profile-area-hint">A city or "Online only". Never your address.</p>
+        @if (message(form.controls.areaLabel, 'Area'); as error) {
+          <p class="field-error" role="alert">{{ error }}</p>
+        }
+      </div>
+
+      <fieldset class="field">
+        <legend>Who can see your profile</legend>
+        @for (option of visibilityOptions; track option.value) {
+          <div class="radio">
+            <input
+              type="radio"
+              formControlName="visibility"
+              [id]="'visibility-' + option.value"
+              [value]="option.value"
+              [attr.aria-describedby]="'visibility-' + option.value + '-detail'"
+            />
+            <label [for]="'visibility-' + option.value">{{ option.label }}</label>
+            <span class="field-hint" [id]="'visibility-' + option.value + '-detail'">{{ option.detail }}</span>
+          </div>
+        }
+        @if (message(form.controls.visibility, 'Visibility'); as error) {
+          <p class="field-error" role="alert">{{ error }}</p>
+        }
+      </fieldset>
+
+      <div class="actions">
+        <button class="button" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : 'Save profile' }}</button>
+        @if (isWelcome()) {
+          <a routerLink="/members">Skip for now and browse members</a>
+        }
+      </div>
+    </form>
+
+    <section class="blocked" aria-labelledby="blocked-title">
+      <h2 id="blocked-title">Blocked members</h2>
+      <p>
+        Blocked members cannot see your profile and you will not see theirs. They are not told. Block someone from
+        their profile page.
+      </p>
+      @if (blockError(); as error) {
+        <p class="form-error" role="alert">{{ error }}</p>
+      }
+      @if (blocks().length === 0) {
+        <p>You have not blocked anyone.</p>
+      } @else {
+        <ul class="plain-list">
+          @for (member of blocks(); track member.memberId) {
+            <li>
+              <span>{{ member.displayName }}</span>
+              <button type="button" class="button-secondary" (click)="unblock(member)">
+                Unblock <span class="visually-hidden">{{ member.displayName }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</section>

@@ -15,6 +15,8 @@ public sealed class CircleShiftDbContext(DbContextOptions<CircleShiftDbContext> 
 
     public DbSet<RoleGrant> RoleGrants => Set<RoleGrant>();
 
+    public DbSet<MemberBlock> MemberBlocks => Set<MemberBlock>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CircleShiftDbContext).Assembly);
 }

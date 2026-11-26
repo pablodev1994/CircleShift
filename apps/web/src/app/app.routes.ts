@@ -1,5 +1,6 @@
 import type { Routes } from '@angular/router';
 
+import { requireSignedIn, requireVisitor } from './core/auth/auth.guards';
 import { requireRole } from './core/navigation/role.guard';
 
 const placeholder = () =>
@@ -11,6 +12,34 @@ export const routes: Routes = [
     pathMatch: 'full',
     title: 'CircleShift',
     loadComponent: () => import('./features/home/home').then((m) => m.Home),
+  },
+  {
+    path: 'join',
+    title: 'Join · CircleShift',
+    canActivate: [requireVisitor],
+    loadComponent: () => import('./features/auth/join').then((m) => m.Join),
+  },
+  {
+    path: 'sign-in',
+    title: 'Sign in · CircleShift',
+    canActivate: [requireVisitor],
+    loadComponent: () => import('./features/auth/sign-in').then((m) => m.SignIn),
+  },
+  {
+    path: 'profile',
+    title: 'Your profile · CircleShift',
+    canActivate: [requireSignedIn],
+    loadComponent: () => import('./features/profile/profile-editor').then((m) => m.ProfileEditor),
+  },
+  {
+    path: 'members',
+    title: 'Members · CircleShift',
+    loadComponent: () => import('./features/members/member-directory').then((m) => m.MemberDirectory),
+  },
+  {
+    path: 'members/:id',
+    title: 'Member · CircleShift',
+    loadComponent: () => import('./features/members/member-profile').then((m) => m.MemberProfile),
   },
   {
     path: 'board',

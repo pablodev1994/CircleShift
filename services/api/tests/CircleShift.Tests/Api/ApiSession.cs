@@ -27,6 +27,35 @@ public sealed class ApiSession(HttpClient client) : IDisposable
         return response;
     }
 
+    public async Task<HttpResponseMessage> PutAsync(string path, object? body = null)
+    {
+        var response = body is null ? await Client.PutAsync(path, null) : await Client.PutAsJsonAsync(path, body);
+        TakeCsrfToken(response);
+        return response;
+    }
+
+    public async Task<HttpResponseMessage> DeleteAsync(string path)
+    {
+        var response = await Client.DeleteAsync(path);
+        TakeCsrfToken(response);
+        return response;
+    }
+
+    /// <summary>Saves the caller's profile with the given visibility and optional languages.</summary>
+    public async Task SetProfileAsync(string displayName, string visibility, params string[] languages)
+    {
+        var response = await PutAsync("/api/v1/members/me/profile", new
+        {
+            displayName,
+            timeZoneId = "Europe/Madrid",
+            bio = (string?)null,
+            languages,
+            areaLabel = (string?)null,
+            visibility,
+        });
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+    }
+
     public async Task<Guid> RegisterAsync(string email, string displayName = "Test Member")
     {
         await RefreshCsrfAsync();

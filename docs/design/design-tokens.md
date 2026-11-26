@@ -17,6 +17,7 @@ tokens, never raw colors, so a palette change happens in one place.
 | `--cs-color-accent` | `#b45309` | Focus outline, notice border |
 | `--cs-color-border` | `#d9e2ec` | Dividers and card borders (decorative only) |
 | `--cs-color-notice-bg` | `#fffbeb` | Background of `.notice` callouts |
+| `--cs-color-danger` | `#b42318` | Form errors, invalid field borders, the confirm-block button |
 
 ### Contrast (WCAG 2.2)
 
@@ -35,6 +36,9 @@ minimum.
 | primary `#0f766e` | bg `#f8faf9` | 5.22:1 | AA |
 | primary-contrast `#ffffff` | primary `#0f766e` | 5.47:1 | AA |
 | accent outline `#b45309` | bg `#f8faf9` | 4.79:1 | ≥ 3:1 non-text |
+| danger `#b42318` | surface `#ffffff` | 6.57:1 | AA |
+| danger `#b42318` | bg `#f8faf9` | 6.27:1 | AA |
+| primary-contrast `#ffffff` | danger `#b42318` | 6.57:1 | AA |
 
 `--cs-color-border` (1.31:1 on white) is only for decoration. Never use it as
 the only boundary of a form field or control; inputs get a darker outline when

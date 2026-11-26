@@ -43,6 +43,10 @@ pnpm install
 pnpm web:start                    # http://localhost:4200
 ```
 
+The dev server proxies `/api` to the API on `http://localhost:5080`
+(`apps/web/proxy.conf.json`), so the session and `XSRF-TOKEN` cookies are
+same-origin. Join at `/join`, then set up your profile at `/profile`.
+
 ## Seed demo data
 
 After migrations, from `services/api` with `.env` exported:

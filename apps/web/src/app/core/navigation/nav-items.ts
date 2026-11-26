@@ -11,6 +11,7 @@ const EVERYONE: readonly Role[] = ['member', 'coordinator', 'moderator', 'admin'
 
 export const NAV_ITEMS: readonly NavItem[] = [
   { path: '/', label: 'Home', roles: EVERYONE },
+  { path: '/members', label: 'Members', roles: EVERYONE },
   { path: '/board', label: 'Offers & requests', roles: EVERYONE },
   { path: '/matches', label: 'Matches', roles: EVERYONE },
   { path: '/exchanges', label: 'Exchanges', roles: EVERYONE },

@@ -24,6 +24,8 @@ module.exports = tseslint.config(
       ],
       '@angular-eslint/prefer-on-push-component-change-detection': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
+      // Angular components and services are classes with decorators, even when empty.
+      '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
     },
   },
   {
